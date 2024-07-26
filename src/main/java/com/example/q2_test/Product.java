@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +15,7 @@ public class Product {
     private int price;
     private int stock;
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }

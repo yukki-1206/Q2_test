@@ -1,12 +1,8 @@
 package com.example.q2_test;
 
-import com.example.demo.entity.Product;
-import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/api/products")
@@ -16,11 +12,9 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody Product newProduct) {
-        Product savedProduct = productRepository.save(newProduct);
-        URI location = URI.create(String.format("/api/products/%d", savedProduct.getId()));
-
-        return ResponseEntity.created(location).body(new ProductResponse("Product created successfully", savedProduct));
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
+        Product savedProduct = productRepository.save(product);
+        return ResponseEntity.ok().body(new ProductResponse("Product created successfully", savedProduct));
     }
 
     static class ProductResponse {
@@ -32,12 +26,21 @@ public class ProductController {
             this.product = product;
         }
 
+        // Getters and setters
         public String getMessage() {
             return message;
         }
 
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
         public Product getProduct() {
             return product;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
         }
     }
 }
